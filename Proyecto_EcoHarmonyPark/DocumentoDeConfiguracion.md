@@ -42,10 +42,12 @@
     ├───Lineas Base
     ├───Producto
     │   ├───Arquitectura del producto
+    │   ├───Casos de prueba
     │   └───Codigo Fuente
     └───Proyecto
         ├───Métricas del Proyecto
         ├───Product Backlog
+        │   └───User Stories
         └───Sprint
             └───Sprint 1
                 ├───Codigo Fuente
@@ -63,10 +65,10 @@
 | Product Backlog | `EHP_Product_Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Product Backlog` | Producto |
 | Sprint Backlog | `EHP_<Sprint_n>Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Sprint Backlog` | Iteración |
 | Arquitectura | `EHP_Arquitectura_.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura` | Producto |
-| User Story | `EHP_UserStory_<US_nombre>_<NumeroUS>.docx` | `http://<IP servidor>/EHP/Producto/User Stories` | Producto |
+| User Story | `EHP_UserStory_<US_nombre>_<NumeroUS>.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog/User Stories` | Producto |
 | Métricas del proyecto | `EHP_Metrica_NombreMetrica.docx` | `http://<IP servidor>/EHP/Producto/Métricas del proyecto` | Proyecto |
 | Línea Base del proyecto | `EHP_LineaBase_<NumLineaB>_.docx` | `http://<IP servidor>/EHP/Lineas Base` | Iteración |
-| Casos de Prueba | `EHP_CasoPrueba.xlsx` | `http://<IP servidor>/EHP/Producto/Pruebas` | Producto |
+| Casos de Prueba | `EHP_CasoPrueba.xlsx` | `http://<IP servidor>/EHP/Producto/Casos de prueba` | Producto |
 
 **Reglas de versionado:**
 
