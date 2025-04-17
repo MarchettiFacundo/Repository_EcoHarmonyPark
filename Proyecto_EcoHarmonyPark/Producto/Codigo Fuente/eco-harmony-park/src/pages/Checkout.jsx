@@ -5,6 +5,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
 import dayjs from 'dayjs';
+import MercadoPagoModal from '../components/MercadoPagoModal/MercadoPagoModal';
 
 
 const { Option } = Select;
@@ -26,6 +27,7 @@ export const Checkout = ({ userEmail }) => {
   const [form] = Form.useForm();
   const [tipoPago, setTipoPago] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mostrarModalMP, setMostrarModalMP] = useState(false);
 
 
   if (!fecha || !cantidad) {
@@ -70,14 +72,9 @@ export const Checkout = ({ userEmail }) => {
     console.log('Resumen:', resumen);
     console.log('Fecha:', fecha)
     if (tipoPago === 'tarjeta') {
-      // Se debe redirigir o simular un cobro con MP
-      // =====================================================================
-      await Swal.fire({
-        title: 'Simulando pago con tarjeta...',
-        timer: 2000,
-        didOpen: () => Swal.showLoading(),
-      });
-      //=========================================================================
+      // Se simula un cobro con MP
+      setMostrarModalMP(true);
+      return;
     }
 
     await Swal.fire({
@@ -107,70 +104,99 @@ export const Checkout = ({ userEmail }) => {
     navigate('/');
   };
 
+  const handlePagoFinalizado = (pago) => {
+    console.log("Pago confirmado:", pago);
+    Swal.fire({
+      icon: "success",
+      title: "Compra confirmada",
+      html: `
+        <p>Entradas: ${cantidad}</p>
+        <p>Fecha: ${fechaDayjs.format("DD/MM/YYYY")}</p>
+        <p>Pago: ${tipoPago}</p>
+        <p>Total: $${total}</p>
+      `,
+    }).then(() => {
+      navigate("/");
+    });
+  };
+  
+
   return (
-    <>
-      <div style={{ maxWidth: 600, margin: '20px auto 0', paddingLeft: 8 }}>
+    <>      
+      <div style={{ maxWidth: 600, margin: "20px auto 0", paddingLeft: 8 }}>
         <Button
           type="link"
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
           style={{ paddingLeft: 0 }}
         >
           Volver al inicio
         </Button>
       </div>
 
-      <Card title={`Entrada ${entradaIndex + 1} de ${cantidad}`} style={{ maxWidth: 600, margin: '0 auto' }}>
-      {entradas.length < cantidad ? (
+      <Card
+        title={`Entrada ${entradaIndex + 1} de ${cantidad}`}
+        style={{ maxWidth: 600, margin: "0 auto" }}
+      >
+        {entradas.length < cantidad ? (
+          <Form form={form} layout="vertical">
+            <Form.Item
+              label="Tipo"
+              name="tipo"
+              rules={[
+                { required: true, message: "Selecciona el tipo de entrada" },
+              ]}
+            >
+              <Select placeholder="Selecciona tipo">
+                <Option value="basica">Básica - $1000</Option>
+                <Option value="vip">VIP - $2000</Option>
+              </Select>
+            </Form.Item>
 
-        <Form form={form} layout="vertical">
-          <Form.Item
-            label="Tipo"
-            name="tipo"
-            rules={[{ required: true, message: 'Selecciona el tipo de entrada' }]}
-          >
-            <Select placeholder="Selecciona tipo">
-              <Option value="basica">Básica - $1000</Option>
-              <Option value="vip">VIP - $2000</Option>
-            </Select>
-          </Form.Item>
+            <Form.Item
+              label="Edad"
+              name="edad"
+              rules={[{ required: true, message: "Ingresa la edad" }]}
+            >
+              <InputNumber min={0} max={120} style={{ width: "100%" }} />
+            </Form.Item>
 
-          <Form.Item
-            label="Edad"
-            name="edad"
-            rules={[{ required: true, message: 'Ingresa la edad' }]}
-          >
-            <InputNumber min={0} max={120} style={{ width: '100%' }} />
-          </Form.Item>
-
-          <Form.Item>
-            {entradaIndex + 1 === cantidad ? (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
-                Terminar entradas
-              </Button>
-            ) : (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
-                Siguiente entrada
-              </Button>
-            )}
-          </Form.Item>
-        </Form>
-      ):(
-        <p>✅ Todas las entradas han sido registradas</p>
-      )}
+            <Form.Item>
+              {entradaIndex + 1 === cantidad ? (
+                <Button type="primary" onClick={handleAgregarEntrada} block>
+                  Terminar entradas
+                </Button>
+              ) : (
+                <Button type="primary" onClick={handleAgregarEntrada} block>
+                  Siguiente entrada
+                </Button>
+              )}
+            </Form.Item>
+          </Form>
+        ) : (
+          <p>✅ Todas las entradas han sido registradas</p>
+        )}
 
         {entradas.length === cantidad && (
           <>
             <Title level={4}>Total a pagar: ${total}</Title>
             <Form layout="vertical">
               <Form.Item label="Método de pago" required>
-                <Select onChange={(v) => setTipoPago(v)} placeholder="Selecciona forma de pago">
+                <Select
+                  onChange={(v) => setTipoPago(v)}
+                  placeholder="Selecciona forma de pago"
+                >
                   <Option value="efectivo">Efectivo</Option>
                   <Option value="tarjeta">Tarjeta (Mercado Pago)</Option>
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Button type="primary" onClick={handleConfirm} loading={loading} block>
+                <Button
+                  type="primary"
+                  onClick={handleConfirm}
+                  loading={loading}
+                  block
+                >
                   Confirmar y pagar
                 </Button>
               </Form.Item>
@@ -178,6 +204,16 @@ export const Checkout = ({ userEmail }) => {
           </>
         )}
       </Card>
-      </>
-      );
+
+      <MercadoPagoModal
+        visible={mostrarModalMP}
+        onClose={() => {
+          setMostrarModalMP(false);
+          setLoading(false);
+        }}
+        onFinish={handlePagoFinalizado}
+        total={total}
+      />
+    </>
+  );
 };
