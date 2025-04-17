@@ -28,3 +28,11 @@ code {
   background-color: white;
   color: #008a20;
 }
+
+@media (max-width: 550px) {
+
+
+  .header {
+    flex-direction: column;
+  }
+}
