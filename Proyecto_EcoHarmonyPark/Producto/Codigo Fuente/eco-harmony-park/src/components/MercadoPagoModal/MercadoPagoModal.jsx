@@ -249,8 +249,7 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
                   Elige otro medio de pago
                 </Button>
                 <Button
-                  style={{ backgroundColor: "#009EE3", borderColor: "#009EE3" }}
-                  type="primary"
+                  className="btn-continuar"
                   loading={procesandoPago}
                   onClick={handleSubmit}
                 >
