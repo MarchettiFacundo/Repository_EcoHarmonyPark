@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
 import dayjs from 'dayjs';
 
-
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -59,7 +58,6 @@ export const Checkout = ({ userEmail }) => {
     }
     const fechaFormateada = fechaDayjs.format('DD/MM/YYYY');
 
-    setLoading(true);
     const resumen = {
       fecha: fechaFormateada,
       cantidad,
@@ -67,8 +65,9 @@ export const Checkout = ({ userEmail }) => {
       entradas,
       total,
     };
-    console.log('Resumen:', resumen);
-    console.log('Fecha:', fecha)
+
+    setLoading(true);
+
     if (tipoPago === 'tarjeta') {
       // Se debe redirigir o simular un cobro con MP
       // =====================================================================
@@ -90,18 +89,57 @@ export const Checkout = ({ userEmail }) => {
     <p>Total: $${total}</p>
   `,
     });
-
-    // EmailJS para envio de mails o investigar otro servicio
-    // ======================================================================================================================
     try {
-      await emailjs.send('tu_service_id', 'tu_template_id', {
-        user_email: userEmail,
-        message: `Compra para el día ${resumen.fecha} - ${cantidad} entradas. Total: $${total}`,
-      }, 'tu_user_id');
+      const entradasConPrecio = entradas.map((entrada, index) => ({
+        ...entrada,
+        precio: precios[entrada.tipo],
+      }));
+
+      const entradasHtml = `
+      <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-family: sans-serif;">
+        <thead>
+          <tr style="background-color: #f0f0f0;">
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">#</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Tipo</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Edad</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${entradasConPrecio
+            .map(
+              (entrada, i) => `
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">${i + 1}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${entrada.tipo.toUpperCase()}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${entrada.edad}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">$${entrada.precio}</td>
+            </tr>
+          `
+            )
+            .join('')}
+        </tbody>
+      </table>
+    `;
+    
+
+      console.log(entradasHtml)
+      await emailjs.send(
+        'service_ugy99au',
+        'template_34uc2dc',
+        {
+          user_email: userEmail,
+          fecha: resumen.fecha,
+          tipo_pago: resumen.tipoPago,
+          total: resumen.total,
+          entradas: entradasHtml,
+        },
+        'EAiiqrSOqhQcgpuO0'
+      );
     } catch (err) {
-      message.error('Error al enviar email');
+      console.error(err);
+      message.error('Error al enviar el email');
     }
-    // ===================================================================================================================
 
     setLoading(false);
     navigate('/');
@@ -121,43 +159,43 @@ export const Checkout = ({ userEmail }) => {
       </div>
 
       <Card title={`Entrada ${entradaIndex + 1} de ${cantidad}`} style={{ maxWidth: 600, margin: '0 auto' }}>
-      {entradas.length < cantidad ? (
+        {entradas.length < cantidad ? (
 
-        <Form form={form} layout="vertical">
-          <Form.Item
-            label="Tipo"
-            name="tipo"
-            rules={[{ required: true, message: 'Selecciona el tipo de entrada' }]}
-          >
-            <Select placeholder="Selecciona tipo">
-              <Option value="basica">Básica - $1000</Option>
-              <Option value="vip">VIP - $2000</Option>
-            </Select>
-          </Form.Item>
+          <Form form={form} layout="vertical">
+            <Form.Item
+              label="Tipo"
+              name="tipo"
+              rules={[{ required: true, message: 'Selecciona el tipo de entrada' }]}
+            >
+              <Select placeholder="Selecciona tipo">
+                <Option value="basica">Básica - $1000</Option>
+                <Option value="vip">VIP - $2000</Option>
+              </Select>
+            </Form.Item>
 
-          <Form.Item
-            label="Edad"
-            name="edad"
-            rules={[{ required: true, message: 'Ingresa la edad' }]}
-          >
-            <InputNumber min={0} max={120} style={{ width: '100%' }} />
-          </Form.Item>
+            <Form.Item
+              label="Edad"
+              name="edad"
+              rules={[{ required: true, message: 'Ingresa la edad' }]}
+            >
+              <InputNumber min={0} max={120} style={{ width: '100%' }} />
+            </Form.Item>
 
-          <Form.Item>
-            {entradaIndex + 1 === cantidad ? (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
-                Terminar entradas
-              </Button>
-            ) : (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
-                Siguiente entrada
-              </Button>
-            )}
-          </Form.Item>
-        </Form>
-      ):(
-        <p>✅ Todas las entradas han sido registradas</p>
-      )}
+            <Form.Item>
+              {entradaIndex + 1 === cantidad ? (
+                <Button type="primary" onClick={handleAgregarEntrada} block>
+                  Terminar entradas
+                </Button>
+              ) : (
+                <Button type="primary" onClick={handleAgregarEntrada} block>
+                  Siguiente entrada
+                </Button>
+              )}
+            </Form.Item>
+          </Form>
+        ) : (
+          <p>✅ Todas las entradas han sido registradas</p>
+        )}
 
         {entradas.length === cantidad && (
           <>
@@ -178,6 +216,6 @@ export const Checkout = ({ userEmail }) => {
           </>
         )}
       </Card>
-      </>
-      );
+    </>
+  );
 };
