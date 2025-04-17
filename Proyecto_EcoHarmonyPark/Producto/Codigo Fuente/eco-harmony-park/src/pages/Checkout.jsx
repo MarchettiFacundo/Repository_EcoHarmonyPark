@@ -5,6 +5,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
 import dayjs from 'dayjs';
+import MercadoPagoModal from '../components/MercadoPagoModal/MercadoPagoModal';
 import '../App.css'
 
 const { Option } = Select;
@@ -26,6 +27,7 @@ export const Checkout = ({ userEmail }) => {
   const [form] = Form.useForm();
   const [tipoPago, setTipoPago] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mostrarModalMP, setMostrarModalMP] = useState(false);
 
 
   if (!fecha || !cantidad) {
@@ -66,18 +68,12 @@ export const Checkout = ({ userEmail }) => {
       entradas,
       total,
     };
-
-    setLoading(true);
-
-    if (tipoPago === 'Tarjeta') {
-      // Se debe redirigir o simular un cobro con MP
-      // =====================================================================
-      await Swal.fire({
-        title: 'Simulando pago con tarjeta...',
-        timer: 2000,
-        didOpen: () => Swal.showLoading(),
-      });
-      //=========================================================================
+    console.log('Resumen:', resumen);
+    console.log('Fecha:', fecha)
+    if (tipoPago === 'tarjeta') {
+      // Se simula un cobro con MP
+      setMostrarModalMP(true);
+      return;
     }
 
     await Swal.fire({
@@ -146,13 +142,30 @@ export const Checkout = ({ userEmail }) => {
     navigate('/');
   };
 
+  const handlePagoFinalizado = (pago) => {
+    console.log("Pago confirmado:", pago);
+    Swal.fire({
+      icon: "success",
+      title: "Compra confirmada",
+      html: `
+        <p>Entradas: ${cantidad}</p>
+        <p>Fecha: ${fechaDayjs.format("DD/MM/YYYY")}</p>
+        <p>Pago: ${tipoPago}</p>
+        <p>Total: $${total}</p>
+      `,
+    }).then(() => {
+      navigate("/");
+    });
+  };
+  
+
   return (
-    <>
-      <div style={{ maxWidth: 600, margin: '20px auto 0', paddingLeft: 8 }}>
+    <>      
+      <div style={{ maxWidth: 600, margin: "20px auto 0", paddingLeft: 8 }}>
         <Button
           type="link"
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
           style={{ paddingLeft: 0 }}
         >
           Volver al inicio
@@ -203,13 +216,21 @@ export const Checkout = ({ userEmail }) => {
             <Title level={4}>Total a pagar: ${total}</Title>
             <Form layout="vertical">
               <Form.Item label="Método de pago" required>
-                <Select onChange={(v) => setTipoPago(v)} placeholder="Selecciona forma de pago">
-                  <Option value="Efectivo">Efectivo</Option>
-                  <Option value="Tarjeta">Tarjeta de credito (Mercado Pago)</Option>
+                <Select
+                  onChange={(v) => setTipoPago(v)}
+                  placeholder="Selecciona forma de pago"
+                >
+                  <Option value="efectivo">Efectivo</Option>
+                  <Option value="tarjeta">Tarjeta de Crédito (Mercado Pago)</Option>
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Button type="primary" onClick={handleConfirm} loading={loading} block>
+                <Button
+                  type="primary"
+                  onClick={handleConfirm}
+                  loading={loading}
+                  block
+                >
                   Confirmar y pagar
                 </Button>
               </Form.Item>
@@ -217,6 +238,15 @@ export const Checkout = ({ userEmail }) => {
           </>
         )}
       </Card>
+      <MercadoPagoModal
+        visible={mostrarModalMP}
+        onClose={() => {
+          setMostrarModalMP(false);
+          setLoading(false);
+        }}
+        onFinish={handlePagoFinalizado}
+        total={total}
+      />
     </>
   );
 };
