@@ -5,6 +5,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
 import dayjs from 'dayjs';
+import '../App.css'
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -68,7 +69,7 @@ export const Checkout = ({ userEmail }) => {
 
     setLoading(true);
 
-    if (tipoPago === 'tarjeta') {
+    if (tipoPago === 'Tarjeta') {
       // Se debe redirigir o simular un cobro con MP
       // =====================================================================
       await Swal.fire({
@@ -203,8 +204,8 @@ export const Checkout = ({ userEmail }) => {
             <Form layout="vertical">
               <Form.Item label="Método de pago" required>
                 <Select onChange={(v) => setTipoPago(v)} placeholder="Selecciona forma de pago">
-                  <Option value="efectivo">Efectivo</Option>
-                  <Option value="tarjeta">Tarjeta (Mercado Pago)</Option>
+                  <Option value="Efectivo">Efectivo</Option>
+                  <Option value="Tarjeta">Tarjeta de credito (Mercado Pago)</Option>
                 </Select>
               </Form.Item>
               <Form.Item>
