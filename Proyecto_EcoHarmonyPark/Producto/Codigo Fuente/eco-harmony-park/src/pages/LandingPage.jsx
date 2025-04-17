@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Layout, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import parqueImg from '../assets/Parque.png'; 
+import parqueImg from '../assets/Parque.png';
+import '../assets/styles/landingPageStyles.css' 
 
 const { Title, Paragraph } = Typography;
 const { Footer, Content } = Layout;
@@ -52,7 +53,7 @@ export const LandingPage = ({ onLoginClick }) => {
             <Paragraph>
                 ¿Listo para la aventura?
             </Paragraph>
-            <Button type="primary" onClick={() => navigate('/home')} size="large">
+            <Button className="btn" type="deafult" onClick={() => navigate('/home')} size="large">
                 Comprá tus entradas
             </Button>
           </div>
