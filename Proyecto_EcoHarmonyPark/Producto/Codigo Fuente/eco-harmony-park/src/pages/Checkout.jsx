@@ -121,6 +121,8 @@ export const Checkout = ({ userEmail }) => {
       </div>
 
       <Card title={`Entrada ${entradaIndex + 1} de ${cantidad}`} style={{ maxWidth: 600, margin: '0 auto' }}>
+      {entradas.length < cantidad ? (
+
         <Form form={form} layout="vertical">
           <Form.Item
             label="Tipo"
@@ -153,6 +155,9 @@ export const Checkout = ({ userEmail }) => {
             )}
           </Form.Item>
         </Form>
+      ):(
+        <p>✅ Todas las entradas han sido registradas</p>
+      )}
 
         {entradas.length === cantidad && (
           <>
