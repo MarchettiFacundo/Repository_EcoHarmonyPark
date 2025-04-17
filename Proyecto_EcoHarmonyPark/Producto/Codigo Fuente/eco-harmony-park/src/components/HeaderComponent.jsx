@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
-import logo from '../assets/logo.png'; // Ajusta la ruta según tu estructura
+import logo from '../assets/logo-leon-blanco.png'; // Ajusta la ruta según tu estructura
+import '../assets/styles/headerStyles.css'
+
 
 const HeaderComponent = ({ userEmail, setLoginVisible }) => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const HeaderComponent = ({ userEmail, setLoginVisible }) => {
           EcoHarmonyPark
         </span>
       </div>
-      <Button id="login-btn"  type="primary" onClick={() => setLoginVisible(true)} style={{ padding: '1.2rem', fontWeight: 'bold', backgroundColor: 'white', color: '#008a20', border: '2px solid #008a20', borderRadius: '6px' }}>
+      <Button className='login-btn' type="deafult" onClick={() => setLoginVisible(true)}>
         {userEmail ? `Hola ${userEmail}` : 'Login'}
       </Button>
     </div>
