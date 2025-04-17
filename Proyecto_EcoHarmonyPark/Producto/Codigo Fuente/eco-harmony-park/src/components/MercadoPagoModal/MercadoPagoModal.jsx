@@ -13,9 +13,9 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
   useEffect(() => {
     if (total > 0) {
       setCuotas([
-        { label: `1 cuota de $${total.toFixed(2)}`, value: "1" },
-        { label: `3 cuotas de $${(total / 3).toFixed(2)}`, value: "3" },
-        { label: `6 cuotas de $${(total / 6).toFixed(2)}`, value: "6" },
+        { label: `1 cuota de $${(total).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, value: "1" },
+        { label: `3 cuotas de $${(total / 3).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, value: "3" },
+        { label: `6 cuotas de $${(total / 6).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, value: "6" },
       ]);
     }
   }, [total]);
@@ -66,7 +66,7 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
         footer={null}
         onCancel={handleClose}
         centered
-        width={"80%"}
+        width={800}
         styles={{
           body: { padding: 0 },
         }}
