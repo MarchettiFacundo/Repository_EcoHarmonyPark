@@ -7,7 +7,7 @@ const HeaderComponent = ({ userEmail, setLoginVisible }) => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff', padding: '0 1rem' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#008a20', color: 'white', padding: '1rem 2.5rem', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
       <div
         style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
         onClick={() => navigate('/')}
@@ -17,7 +17,7 @@ const HeaderComponent = ({ userEmail, setLoginVisible }) => {
           EcoHarmonyPark
         </span>
       </div>
-      <Button type="primary" onClick={() => setLoginVisible(true)}>
+      <Button id="login-btn"  type="primary" onClick={() => setLoginVisible(true)} style={{ padding: '1.2rem', fontWeight: 'bold', backgroundColor: 'white', color: '#008a20', border: '2px solid #008a20', borderRadius: '6px' }}>
         {userEmail ? `Hola ${userEmail}` : 'Login'}
       </Button>
     </div>
