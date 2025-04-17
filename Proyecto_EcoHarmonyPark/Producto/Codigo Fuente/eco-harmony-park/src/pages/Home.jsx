@@ -40,7 +40,7 @@ export const Home = ({ userEmail }) => {
 
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: 400, margin: '0 auto' }}>
+    <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: 400, margin: '2rem auto' }}>
       <Form.Item
         label="Selecciona la fecha de visita"
         name="fecha"
