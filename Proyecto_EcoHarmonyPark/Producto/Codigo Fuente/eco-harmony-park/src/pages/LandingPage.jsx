@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Layout, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import parqueImg from '../assets/Parque.png';
-import '../assets/styles/landingPageStyles.css' 
 
 const { Title, Paragraph } = Typography;
 const { Footer, Content } = Layout;

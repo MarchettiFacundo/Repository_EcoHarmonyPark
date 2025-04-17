@@ -145,11 +145,11 @@ export const Checkout = ({ userEmail }) => {
 
           <Form.Item>
             {entradaIndex + 1 === cantidad ? (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
+              <Button className="btn" type="deafult" onClick={handleAgregarEntrada} block>
                 Terminar entradas
               </Button>
             ) : (
-              <Button type="primary" onClick={handleAgregarEntrada} block>
+              <Button className="btn" type="deafult" onClick={handleAgregarEntrada} block>
                 Siguiente entrada
               </Button>
             )}
@@ -170,7 +170,7 @@ export const Checkout = ({ userEmail }) => {
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Button type="primary" onClick={handleConfirm} loading={loading} block>
+                <Button type="deafult" className='btn' onClick={handleConfirm} loading={loading} block>
                   Confirmar y pagar
                 </Button>
               </Form.Item>

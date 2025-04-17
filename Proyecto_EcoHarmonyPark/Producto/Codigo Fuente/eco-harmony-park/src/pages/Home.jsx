@@ -70,7 +70,7 @@ export const Home = ({ userEmail }) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block disabled={!userEmail}>
+        <Button className="btn" type="deafult" htmlType="submit" block disabled={!userEmail}>
           Continuar
         </Button>
       </Form.Item>
