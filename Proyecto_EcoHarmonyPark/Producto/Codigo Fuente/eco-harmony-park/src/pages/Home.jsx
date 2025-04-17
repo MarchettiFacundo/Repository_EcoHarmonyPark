@@ -40,7 +40,7 @@ export const Home = ({ userEmail }) => {
 
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: 400, margin: '0 auto' }}>
+    <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: 400, margin: '2rem auto' }}>
       <Form.Item
         label="Selecciona la fecha de visita"
         name="fecha"
@@ -70,7 +70,7 @@ export const Home = ({ userEmail }) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block disabled={!userEmail}>
+        <Button className="btn" type="deafult" htmlType="submit" block disabled={!userEmail}>
           Continuar
         </Button>
       </Form.Item>

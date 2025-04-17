@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Layout, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import parqueImg from '../assets/Parque.png'; 
+import parqueImg from '../assets/Parque.png';
 
 const { Title, Paragraph } = Typography;
 const { Footer, Content } = Layout;
@@ -37,22 +37,22 @@ export const LandingPage = ({ onLoginClick }) => {
           <div
             style={{
               flex: '1 1 300px',
-              padding: '1rem',
+              padding: '4rem',
               textAlign: 'center',
             }}
           >
-            <Title level={2}>Bienvenido a EcoHarmony Park</Title>
-            <Paragraph>
-                Descubrí la magia de la naturaleza en EcoHarmony Park 🌿🦁
+            <Title level={2} style={{ fontWeight: 'bolder'}}>¡Bienvenido a EcoHarmony Park!</Title>
+            <Paragraph style={{ fontWeight: 'bold' }}>
+                Descubrí la magia de la naturaleza en nuestro parque 🌿🦁
             </Paragraph>
             <Paragraph>
                 Viví una experiencia inolvidable rodeado de aventura, ideal para familias y grupos de amigos. Tenemos actividades para todas las edades!
                 Recorre senderos naturales, alimentá a nuestros animales, tirate por la tirolesa, explorá el parque en un emocionante safari y desafiá tus habilidades en nuestra palestra.
             </Paragraph>
-            <Paragraph>
+            <Paragraph style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
                 ¿Listo para la aventura?
             </Paragraph>
-            <Button type="primary" onClick={() => navigate('/home')} size="large">
+            <Button className="btn" type="deafult" onClick={() => navigate('/home')} size="large">
                 Comprá tus entradas
             </Button>
           </div>
