@@ -54,6 +54,71 @@ export const Checkout = ({ userEmail }) => {
 
   const total = entradas.reduce((acc, entrada) => acc + precios[entrada.tipo], 0);
 
+  // Función para envíar el correo, indistintintamente del medio de pago
+  const sendEmail = async () => {
+
+    const fechaFormateada = fechaDayjs.format('DD/MM/YYYY');
+    const resumen = {
+      fecha: fechaFormateada,
+      cantidad,
+      tipoPago,
+      entradas,
+      total,
+    };
+    console.log('Resumen:', resumen);
+    console.log('Fecha:', fecha)
+
+    try {
+      const entradasConPrecio = entradas.map((entrada, index) => ({
+        ...entrada,
+        precio: precios[entrada.tipo],
+      }));
+
+      const entradasHtml = `
+      <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-family: sans-serif;">
+        <thead>
+          <tr style="background-color: #f0f0f0;">
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">#</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Tipo</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Edad</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${entradasConPrecio
+            .map(
+              (entrada, i) => `
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">${i + 1}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${entrada.tipo.toUpperCase()}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${entrada.edad}</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">$${entrada.precio}</td>
+            </tr>
+          `
+            )
+            .join('')}
+        </tbody>
+      </table>
+    `;
+      console.log(entradasHtml)
+      await emailjs.send(
+        'service_ugy99au',
+        'template_34uc2dc',
+        {
+          user_email: userEmail,
+          fecha: resumen.fecha,
+          tipo_pago: resumen.tipoPago,
+          total: resumen.total,
+          entradas: entradasHtml,
+        },
+        'EAiiqrSOqhQcgpuO0'
+      );
+    } catch (err) {
+      console.error(err);
+      message.error('Error al enviar el email');
+    }
+    
+};
   const handleConfirm = async () => {
     if (entradas.length !== cantidad || !tipoPago) {
       message.error('Faltan datos por completar');
@@ -87,10 +152,14 @@ export const Checkout = ({ userEmail }) => {
   `,
     });
     try {
+
+            // Comento por las dudas. Es para mostrar por consola lo que envía al mail. Esta en sendEmail() (puede ser borrado?)
+/*
       const entradasConPrecio = entradas.map((entrada, index) => ({
         ...entrada,
         precio: precios[entrada.tipo],
       }));
+
 
       const entradasHtml = `
       <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-family: sans-serif;">
@@ -118,21 +187,11 @@ export const Checkout = ({ userEmail }) => {
         </tbody>
       </table>
     `;
-    
-
       console.log(entradasHtml)
-      await emailjs.send(
-        'service_ugy99au',
-        'template_34uc2dc',
-        {
-          user_email: userEmail,
-          fecha: resumen.fecha,
-          tipo_pago: resumen.tipoPago,
-          total: resumen.total,
-          entradas: entradasHtml,
-        },
-        'EAiiqrSOqhQcgpuO0'
-      );
+      */
+
+      // Envío correo - efectivo
+      sendEmail();
     } catch (err) {
       console.error(err);
       message.error('Error al enviar el email');
@@ -156,6 +215,14 @@ export const Checkout = ({ userEmail }) => {
     }).then(() => {
       navigate("/");
     });
+    // Envío correo - Tarjeta
+    try {
+      sendEmail();     
+    } catch (err) {
+      console.error(err);
+      message.error('Error al enviar el email');
+    }
+
   };
   
 
