@@ -15,7 +15,7 @@ const HeaderComponent = ({ userEmail, setLoginVisible }) => {
       >
         <img src={logo} alt="Logo" style={{ height: 40 }} />
         <span className='header-title' style={{ marginLeft: 10, fontWeight: 'bold', fontSize: '18px' }}>
-          EcoHarmonyPark
+          mi parque
         </span>
       </div>
       <Button className='btn' type="deafult" onClick={() => setLoginVisible(true)}>
