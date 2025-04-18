@@ -182,8 +182,8 @@ export const Checkout = ({ userEmail }) => {
               rules={[{ required: true, message: 'Selecciona el tipo de entrada' }]}
             >
               <Select placeholder="Selecciona tipo">
-                <Option value="basica">Básica - $1000</Option>
-                <Option value="vip">VIP - $2000</Option>
+                <Option value="basica">Básica - ${precios.basica.toLocaleString("es-AR", {minimumFractionDigits: 2, maximumFractionDigits: 2,})}</Option>
+                <Option value="vip">VIP - ${precios.vip.toLocaleString("es-AR", {minimumFractionDigits: 2, maximumFractionDigits: 2,})}</Option>
               </Select>
             </Form.Item>
 
@@ -213,7 +213,7 @@ export const Checkout = ({ userEmail }) => {
 
         {entradas.length === cantidad && (
           <>
-            <Title level={4}>Total a pagar: ${total}</Title>
+            <Title level={4}>Total a pagar: ${total.toLocaleString("es-AR", {minimumFractionDigits: 2, maximumFractionDigits: 2,})}</Title>
             <Form layout="vertical">
               <Form.Item label="Método de pago" required>
                 <Select
