@@ -232,10 +232,10 @@ export const Checkout = ({ userEmail }) => {
         <Button
           type="link"
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate("/")}
-          style={{ paddingLeft: 0 }}
+          onClick={() => navigate("/home")}
+          style={{ paddingLeft: 0,  color: "#008a20" }}
         >
-          Volver al inicio
+          Volver
         </Button>
       </div>
 
