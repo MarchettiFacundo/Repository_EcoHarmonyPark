@@ -1,37 +1,19 @@
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
-
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
-
-
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Checkout } from './pages/Checkout';
+import { Checkout } from '../pages/Checkout';
 
 test('Intento de compra sin seleccionar forma de pago (debe fallar)', async () => {
-  render(<Checkout userEmail="usuario@email.com" />);
+  render(<Checkout userEmail="dahnihel@gmail.com" />);
 
-  // Simular fecha de visita
   fireEvent.change(screen.getByLabelText(/Fecha de visita/i), { target: { value: '2025-04-20' } });
 
-  // Simular cantidad de entradas menor a 10
   fireEvent.change(screen.getByLabelText(/Cantidad de entradas/i), { target: { value: '1' } });
 
-  // Simular edad de los visitantes
   fireEvent.change(screen.getByLabelText(/Edad/i), { target: { value: '30' } });
 
-  // Seleccionar tipo de pase
   fireEvent.change(screen.getByLabelText(/Tipo de pase/i), { target: { value: 'VIP' } });
 
-  // **No seleccionar la forma de pago** (provocar error)
-
-  // Intentar confirmar compra
   fireEvent.click(screen.getByText(/Confirmar y pagar/i));
 
-  // Esperar mensaje de error
   await waitFor(() => {
     expect(screen.getByText(/Error: Debe seleccionar forma de pago/i)).toBeInTheDocument();
   });
