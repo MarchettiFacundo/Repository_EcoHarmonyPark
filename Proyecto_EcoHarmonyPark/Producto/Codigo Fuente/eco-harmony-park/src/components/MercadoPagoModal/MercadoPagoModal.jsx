@@ -48,6 +48,16 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
         console.error("Errores de validación:", errorInfo);
       });
   };
+  
+  const handleChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+
+    if (value.length > 2) {
+      value = value.slice(0, 2) + "/" + value.slice(2, 4);
+    }
+
+    form.setFieldsValue({ vencimiento: value });
+  };
 
   const handleClose = () => {
     form.resetFields();
@@ -160,6 +170,7 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
                         <Input
                           style={{ width: "60%" }}
                           placeholder="12511311"
+                          maxLength={8}
                           onChange={(e) => {
                             const soloNumeros = e.target.value.replace(
                               /\D/g,
@@ -203,8 +214,13 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
                       },
                     ]}
                   >
-                    <Input placeholder="10/29" />
+                    <Input
+                      placeholder="MM/YY"
+                      maxLength={5}
+                      onChange={handleChange}
+                    />
                   </Form.Item>
+              
                 </Col>
                 <Col xs={24} sm={24} md={12}>
                   <Form.Item
@@ -219,6 +235,8 @@ const MercadoPagoModal = ({ visible, onClose, onFinish, total }) => {
                     ]}
                   >
                     <Input
+                      maxLength={3}
+
                       placeholder="123"
                       onChange={(e) => {
                         const soloNumeros = e.target.value.replace(/\D/g, "");
