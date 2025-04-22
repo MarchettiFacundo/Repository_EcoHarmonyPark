@@ -68,7 +68,7 @@
 | User Story | `EHP_UserStory_<US_nombre>_<NumeroUS>.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog/User Stories` | Producto |
 | Métricas del proyecto | `EHP_Metrica_NombreMetrica.docx` | `http://<IP servidor>/EHP/Producto/Métricas del proyecto` | Proyecto |
 | Línea Base del proyecto | `EHP_LineaBase_<NumLineaB>_.docx` | `http://<IP servidor>/EHP/Lineas Base` | Iteración |
-| Casos de Prueba | `EHP_CasoPrueba.xlsx` | `http://<IP servidor>/EHP/Producto/Casos de prueba` | Producto |
+| Casos de Prueba | `EHP_CasosDePrueba.xlsx` | `http://<IP servidor>/EHP/Producto/Casos de prueba` | Producto |
 
 **Reglas de versionado:**
 
