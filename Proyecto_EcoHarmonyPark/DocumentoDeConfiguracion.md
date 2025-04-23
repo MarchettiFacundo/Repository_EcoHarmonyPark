@@ -60,8 +60,8 @@
 
 | **Listado de ítems** | **Regla de nombrado** | **Ubicación física** | **Tipo de ítem** |
 |----------------------|----------------------|----------------------|------------------|
-| Código fuente | `EHP_<Archivo_Codigo>.<extension>` | `http://<IP servidor>/EHP/Producto/Código Fuente` | Producto |
-| Código fuente sprint | `<Archivo_codigo>-<extension>` | `http://<IP servidor>/EHP/Producto/Sprint_n/Código Fuente` | Iteración |
+| Código fuente | `<Archivo_Codigo>.<extension>` | `http://<IP servidor>/EHP/Producto/Código Fuente` | Producto |
+| Código fuente sprint | `EHP_<Archivo_codigo>-<extension>` | `http://<IP servidor>/EHP/Producto/Sprint_n/Código Fuente` | Iteración |
 | Product Backlog | `EHP_Product_Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Product Backlog` | Producto |
 | Sprint Backlog | `EHP_<Sprint_n>Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Sprint Backlog` | Iteración |
 | Arquitectura | `EHP_Arquitectura_.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura` | Producto |
