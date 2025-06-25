@@ -54,6 +54,16 @@
                 ├───Metricas del sprint
                 ├───Revisiones
                 └───Sprint Backlog
+            └───Sprint 2
+                ├───Codigo Fuente
+                ├───Metricas del sprint
+                ├───Revisiones
+                └───Sprint Backlog
+            └───Sprint 3
+                ├───Codigo Fuente
+                ├───Metricas del sprint
+                ├───Revisiones
+                └───Sprint Backlog
 ```
 
 ### Identificación de ítems de configuración:  
@@ -61,14 +71,15 @@
 | **Listado de ítems** | **Regla de nombrado** | **Ubicación física** | **Tipo de ítem** |
 |----------------------|----------------------|----------------------|------------------|
 | Código fuente | `<Archivo_Codigo>.<extension>` | `http://<IP servidor>/EHP/Producto/Código Fuente` | Producto |
-| Código fuente sprint | `EHP_<Archivo_codigo>-<extension>` | `http://<IP servidor>/EHP/Producto/Sprint_n/Código Fuente` | Iteración |
-| Product Backlog | `EHP_Product_Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Product Backlog` | Producto |
-| Sprint Backlog | `EHP_<Sprint_n>Backlog.png` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Sprint Backlog` | Iteración |
-| Arquitectura | `EHP_Arquitectura_.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura` | Producto |
+| Código fuente sprint | `EHP_<Archivo_codigo>.<extension>` | `http://<IP servidor>/EHP/Producto/Sprint_n/Código Fuente` | Iteración |
+| Product Backlog | `EHP_Product_Backlog.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog` | Producto |
+| Sprint Backlog | `EHP_<Sprint_n>_Backlog.docx` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Sprint Backlog` | Iteración |
+| Arquitectura | `EHP_Arquitectura.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura` | Producto |
 | User Story | `EHP_UserStory_<US_nombre>_<NumeroUS>.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog/User Stories` | Producto |
 | Métricas del proyecto | `EHP_Metrica_NombreMetrica.docx` | `http://<IP servidor>/EHP/Producto/Métricas del proyecto` | Proyecto |
+| Métricas del Sprint | `EHP_Metricas_<Sprint_n>.docx` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Metricas del sprint` | Iteración |
 | Línea Base del proyecto | `EHP_LineaBase_<NumLineaB>_.docx` | `http://<IP servidor>/EHP/Lineas Base` | Iteración |
-| Casos de Prueba | `EHP_CasosDePrueba.xlsx` | `http://<IP servidor>/EHP/Producto/Casos de prueba` | Producto |
+| Casos de Prueba | `EHP_CasosDePrueba_<US_nombre>.xlsx` | `http://<IP servidor>/EHP/Producto/Casos de prueba` | Producto |
 
 **Reglas de versionado:**
 
@@ -85,6 +96,8 @@ Los nombres de sprints seguirán el formato `Sprint_n`, representando el número
 
 | **SIGLA** | **SIGNIFICADO** |
 |----------|---------------|
+| `<Archivo_Codigo>` | Nombre del archivo fuente que contiene parte del código del producto desarrollado |
+| `<extension>` | Extensión del archivo que indica el tipo de código. Ej: .js, .jsx, .ts, .tsx. |
 | `<IP servidor>` | Número de IP del servidor que aloja el repositorio del proyecto EcoHarmony Park. Ej: 192.168.151.3 |
 | `<Sprint_n>` | Número de sprint. Ej: Sprint_7 |
 | `<US_nombre>` | Nombre de la User Story |
