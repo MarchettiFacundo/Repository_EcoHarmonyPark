@@ -74,7 +74,7 @@
 | Código fuente sprint | `EHP_<Archivo_codigo>.<extension>` | `http://<IP servidor>/EHP/Producto/Sprint_n/Código Fuente` | Iteración |
 | Product Backlog | `EHP_Product_Backlog.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog` | Producto |
 | Sprint Backlog | `EHP_<Sprint_n>_Backlog.docx` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Sprint Backlog` | Iteración |
-| Arquitectura | `EHP_Arquitectura.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura` | Producto |
+| Arquitectura | `EHP_Arquitectura.docx` | `http://<IP servidor>/EHP/Producto/Arquitectura del producto` | Producto |
 | User Story | `EHP_UserStory_<US_nombre>_<NumeroUS>.docx` | `http://<IP servidor>/EHP/Proyecto/Product Backlog/User Stories` | Producto |
 | Métricas del proyecto | `EHP_Metrica_NombreMetrica.docx` | `http://<IP servidor>/EHP/Producto/Métricas del proyecto` | Proyecto |
 | Métricas del Sprint | `EHP_Metricas_<Sprint_n>.docx` | `http://<IP servidor>/EHP/Proyecto/Sprints/Sprint_n/Metricas del sprint` | Iteración |
